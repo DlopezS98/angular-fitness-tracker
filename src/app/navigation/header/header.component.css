@@ -1,0 +1,19 @@
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.navigation-items{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navigation-items .nav-item:not(:last-child){
+    margin-right: 12px;
+}
+
+.navigation-items .nav-item a:hover{
+    /* color: #C2185B; */
+    color: #ccc;
+}
