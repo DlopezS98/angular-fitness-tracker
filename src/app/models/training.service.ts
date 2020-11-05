@@ -12,6 +12,7 @@ export class TrainingService {
   ];
 
   private runningExercise: Exercise;
+  private exercises: Exercise[] = [];
 
   getAvailableExercise() {
     return this.availableExercises.slice();
@@ -22,5 +23,35 @@ export class TrainingService {
       (obj) => obj.id === selectedId
     );
     this.exerciseChange.next({ ...this.runningExercise });
+  }
+
+  completeExercise() {
+    this.exercises.push({
+      ...this.runningExercise,
+      date: new Date(),
+      state: 'completed',
+    });
+    this.runningExercise = null;
+    this.exerciseChange.next(null);
+  }
+
+  cancelExercise(progress: number) {
+    this.exercises.push({
+      ...this.runningExercise,
+      duration: this.runningExercise.duration * (progress / 100),
+      calories: this.runningExercise.calories * (progress / 100),
+      date: new Date(),
+      state: 'cancelled',
+    });
+    this.runningExercise = null;
+    this.exerciseChange.next(null);
+  }
+
+  getRunningExercise() {
+    return { ...this.runningExercise };
+  }
+
+  getCompletedOrCancelledExcercises(){
+    return this.exercises.slice();
   }
 }
