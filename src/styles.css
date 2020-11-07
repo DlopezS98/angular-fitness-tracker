@@ -9,3 +9,8 @@ html, body{
 body{
     margin: 0;
 }
+
+.primary-snackbar{
+    background-color: #C2185B;
+    color: #FFF;
+}

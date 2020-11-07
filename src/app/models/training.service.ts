@@ -1,3 +1,4 @@
+import { UIService } from '../shared/ui.service';
 import { Subject } from 'rxjs/Subject';
 import { Exercise } from './exercise.model';
 import {
@@ -12,7 +13,7 @@ import { Subscription } from 'rxjs';
 
 @Injectable()
 export class TrainingService {
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private uiService: UIService) {}
 
   exerciseChange = new Subject<Exercise>();
   exercisesChanges = new Subject<Exercise[]>();
@@ -25,12 +26,14 @@ export class TrainingService {
   // exercises: Observable<Exercise[]>;
 
   fetchgetAvailableExercise() {
+    this.uiService.loadingStateChanged.next(true);
     this.exerciseCollection = this.db.collection('availableExercises');
     this.firebaseSubs.push(
       this.exerciseCollection
         .snapshotChanges()
         .pipe(
           map((actions) => {
+            //  throw new Error("an error has ocurred");
             return actions.map((a) => {
               const data = a.payload.doc.data() as Exercise;
               data.id = a.payload.doc.id;
@@ -38,10 +41,27 @@ export class TrainingService {
             });
           })
         )
-        .subscribe((exercise: Exercise[]) => {
-          this.availableExercises = exercise;
-          this.exercisesChanges.next([...this.availableExercises]);
-        })
+        .subscribe(
+          (exercise: Exercise[]) => {
+            this.uiService.loadingStateChanged.next(false);
+            this.availableExercises = exercise;
+            this.exercisesChanges.next([...this.availableExercises]);
+          },
+          (error) => {
+            this.uiService.loadingStateChanged.next(false);
+            this.uiService.ShowSnackBar(
+              'Fetching exercises failed, please try again later',
+              'Close',
+              {
+                duration: 5000,
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+                panelClass: ['mat-toolbar', 'mat-primary'],
+              }
+            );
+            this.exercisesChanges.next(null);
+          }
+        )
     );
     return this.availableExercises.slice();
     // return this.exercises;
