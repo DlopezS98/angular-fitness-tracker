@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { UIService } from '../../shared/ui.service';
-import { AuthService } from '../../models/auth.service';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.loadingSubs.unsubscribe();
+    if (this.loadingSubs) {
+      this.loadingSubs.unsubscribe();
+    }
   }
 
   onSubmit() {

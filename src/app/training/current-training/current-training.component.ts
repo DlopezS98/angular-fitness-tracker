@@ -1,5 +1,5 @@
-import { TrainingService } from 'src/app/models/training.service';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { TrainingService } from '../../services/training.service';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StopTrainingComponent } from './stop-training.component';
 
@@ -11,7 +11,6 @@ import { StopTrainingComponent } from './stop-training.component';
 export class CurrentTrainingComponent implements OnInit {
   progress = 0;
   timer;
-
 
   constructor(
     private dialog: MatDialog,

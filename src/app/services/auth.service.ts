@@ -1,9 +1,9 @@
-import { UIService } from './../shared/ui.service';
+import { UIService } from '../shared/ui.service';
 import { TrainingService } from './training.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
-import { AuthData } from './auth-data.model';
+import { Subject } from 'rxjs';
+import { AuthData } from '../models/auth-data.model';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable()

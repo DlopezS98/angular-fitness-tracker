@@ -1,4 +1,4 @@
-import { AuthService } from './../../models/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -37,6 +37,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
+    if(this.loadingSubs){
     this.loadingSubs.unsubscribe();
+    }
   }
 }

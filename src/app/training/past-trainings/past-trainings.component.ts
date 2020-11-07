@@ -1,5 +1,5 @@
 import { Exercise } from '../../models/exercise.model';
-import { TrainingService } from 'src/app/models/training.service';
+import { TrainingService } from '../../services/training.service';
 import {
   AfterViewInit,
   Component,
@@ -43,7 +43,9 @@ export class PastTrainingsComponent
   }
 
   ngOnDestroy() {
-    this.exChangedSubscription.unsubscribe();
+    if (this.exChangedSubscription) {
+      this.exChangedSubscription.unsubscribe();
+    }
   }
 
   doFilter(filterValue: string) {

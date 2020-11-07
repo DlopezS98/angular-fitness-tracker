@@ -1,4 +1,4 @@
-import { AuthService } from '../../models/auth.service';
+import { AuthService } from '../../services/auth.service';
 import {
   Component,
   EventEmitter,

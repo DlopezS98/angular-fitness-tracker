@@ -1,6 +1,6 @@
 import { UIService } from '../shared/ui.service';
-import { Subject } from 'rxjs/Subject';
-import { Exercise } from './exercise.model';
+import { Subject } from 'rxjs';
+import { Exercise } from '../models/exercise.model';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
