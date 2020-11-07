@@ -15,9 +15,9 @@ export class TrainingService {
 
   exerciseChange = new Subject<Exercise>();
   exercisesChanges = new Subject<Exercise[]>();
+  finishedExercisesChanged = new Subject<Exercise[]>();
   private availableExercises: Exercise[] = [];
   private runningExercise: Exercise;
-  private exercises: Exercise[] = [];
   exerciseCollection: AngularFirestoreCollection<Exercise>;
   // exercises: Observable<Exercise[]>;
   exerciseDoc: AngularFirestoreDocument<Exercise>;
@@ -44,6 +44,7 @@ export class TrainingService {
   }
 
   startExercise(selectedId: string) {
+    // this.db.doc('availableExercises/'+selectedId).update({lastSelected: new Date()});
     this.runningExercise = this.availableExercises.find(
       (obj) => obj.id === selectedId
     );
@@ -76,11 +77,17 @@ export class TrainingService {
     return { ...this.runningExercise };
   }
 
-  getCompletedOrCancelledExcercises() {
-    return this.exercises.slice();
+  fetchCompletedOrCancelledExcercises() {
+    this.db
+      .collection('finishedExercises')
+      .valueChanges()
+      .subscribe((exercises: Exercise[]) => {
+        this.finishedExercisesChanged.next([...exercises]);
+        console.log(exercises);
+      });
   }
 
-  private addDataToDatabase(exercise: Exercise){
+  private addDataToDatabase(exercise: Exercise) {
     //Si la colección no esta credad en firebase la creara automáticamente
     this.db.collection('finishedExercises').add(exercise);
   }
