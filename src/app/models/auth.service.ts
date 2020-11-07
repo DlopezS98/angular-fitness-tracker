@@ -1,3 +1,4 @@
+import { TrainingService } from './training.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
@@ -10,13 +11,13 @@ export class AuthService {
   authChange = new Subject<boolean>();
   private isAuthenticated: boolean = false;
 
-  constructor(private router: Router, private afAuth: AngularFireAuth) {}
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private trainingService: TrainingService
+  ) {}
 
   registerUser(authData: AuthData) {
-    // this.user = {
-    //   email: authData.email,
-    //   userId: Math.round(Math.random() * 10000).toString(),
-    // };
     this.afAuth
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then((result) => {
@@ -41,6 +42,7 @@ export class AuthService {
   }
 
   logout() {
+    this.trainingService.cancelAllSubscription();
     this.afAuth.signOut();
     this.router.navigate(['/login']);
     this.isAuthenticated = false;
