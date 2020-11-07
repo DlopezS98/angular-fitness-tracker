@@ -93,7 +93,7 @@ export class TrainingService {
     );
   }
 
-  cancelAllSubscription() {
+  cancelAllSubscriptions() {
     this.firebaseSubs.forEach((subs) => subs.unsubscribe());
   }
 
