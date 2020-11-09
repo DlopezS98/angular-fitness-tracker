@@ -19,6 +19,21 @@
       <li *ngIf="isAuth$ | async" class="nav-item">
         <button mat-raised-button (click)="logout()">Logout</button>
       </li>
+      <li class="nav-item">
+        <a
+          mat-raised-button
+          href="https://github.com/DlopezS98/angular-fitness-tracker"
+          target="_blank"
+        >
+            <img
+            class="img-github"
+              src="../../../../assets/GitHub-Mark-Light-32px.png"
+              width="30px"
+              height="30px"
+            />
+          <span>source code</span>
+        </a>
+      </li>
     </ul>
   </div>
 </mat-toolbar>

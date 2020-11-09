@@ -1,6 +1,8 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav role="navigation">
-    <p>I´m a sidenav</p>
+    <div class="img-container">
+      <img src="https://cdn.svgporn.com/logos/angular.svg" width="180px" height="180px">
+    </div>
     <app-sidenav-list (closeSidenav)="sidenav.close()"></app-sidenav-list>
   </mat-sidenav>
   <mat-sidenav-content>
