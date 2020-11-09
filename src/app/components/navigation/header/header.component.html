@@ -4,9 +4,12 @@
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-  <div><a routerLink="/">Ng Fitness</a></div>
+  <div><a class="nav-brand" routerLink="/">Ng Fitness</a></div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <ul fxLayout class="navigation-items">
+      <li class="nav-item">
+        <a mat-raised-button routerLink="/">Home</a>
+      </li>
       <li *ngIf="isAuth$ | async" class="nav-item">
         <a mat-raised-button routerLink="/training">Training</a>
       </li>
