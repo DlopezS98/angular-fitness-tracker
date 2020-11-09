@@ -1,7 +1,7 @@
-import { WelcomeComponent } from './welcome/welcome.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './components/auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'training',
     loadChildren: () =>
-      import('./training/training.module').then((md) => md.TrainingModule),
+      import('./components/training/training.module').then((md) => md.TrainingModule),
     canLoad: [AuthGuard],
   },
 ];
